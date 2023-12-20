@@ -1,6 +1,10 @@
 import random as rand
 
-def play():
+userWins, compWins = 0, 0
+wins = (userWins, compWins)
+
+def play(wins):
+    
     print("Welcome to Rock, Paper, Scissors")
     userPlay = ""
     
@@ -9,18 +13,28 @@ def play():
     
     compPlay = rand.choice(['R','P','S'])
     
-    print(winner(userPlay, compPlay))
+    wins = winner(userPlay, compPlay, wins[0], wins[1])
+    
+    print(f"In this round, you have {wins[0]} win(s) and the computer has {wins[1]} win(s)")
+    
+    if (wins[0] > wins[1]):
+        print("Keep it up!")
+    elif (wins[0] < wins[1]):
+        print("Step it up")
+    else:
+        print("Somethings gotta give, Jim")
     
     playAgain = input("Want to play again? (Y) or (N): ")
     if (playAgain == 'Y'):
         print("Ok let's go!")
-        play()
+        play(wins)
     else:
         print("Ok, see you next time")
 
-def winner(user, comp):
+def winner(user, comp, userWins, compWins):
     if (user == comp):
-        return ("You Tied!")
+        print("You Tied!")
+        return (userWins, compWins)
     
     if (user == 'R' and comp == 'S') or (user == 'P' and comp == 'R') or (user == 'S' and comp == 'P'):
         if (user == 'R'):
@@ -30,7 +44,8 @@ def winner(user, comp):
         else:
             print("Scissors beats paper!")
             
-        return ("You won!")
+        userWins += 1
+        print ("You won!")
     else:
         if (user == 'R'):
             print("Paper beats rock!")
@@ -39,6 +54,9 @@ def winner(user, comp):
         else:
             print("Rock beats scissors!")
         
-        return ("You lost :(")
+        compWins += 1
+        print ("You lost :(")
+        
+    return (userWins, compWins)
     
-play()
+play(wins)
