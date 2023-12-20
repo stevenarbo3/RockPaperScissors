@@ -24,7 +24,9 @@ def play(wins):
     else:
         print("Somethings gotta give, Jim")
     
-    playAgain = input("Want to play again? (Y) or (N): ")
+    playAgain = ""
+    while (playAgain != 'Y' and playAgain != 'N'):
+        playAgain = input("Want to play again? (Y) or (N): ")
     if (playAgain == 'Y'):
         print("Ok let's go!")
         play(wins)
